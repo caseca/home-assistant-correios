@@ -20,7 +20,7 @@ Clique no menu e vá em Repositórios personalizados.
 Preencha com o endereço do github do componente:
 
 ```markdown
-https://github.com/oridestomkiel/home-assistant-correios
+https://github.com/caseca/home-assistant-correios
 ```
 
 Selecione Integração. Clique em Adicionar:

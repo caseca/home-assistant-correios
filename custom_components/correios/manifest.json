@@ -2,10 +2,11 @@
   "domain": "correios",
   "name": "Rastreamento Correios",
   "version": "1.0",
-  "documentation": "https://github.com/oridestomkiel/home-assistant-correios",
+  "documentation": "https://github.com/caseca/home-assistant-correios",
   "dependencies": [],
   "codeowners": [
-    "@oridestomkiel"
+    "@oridestomkiel",
+    "@diogocaseca"
   ],
   "requirements": [],
   "iot_class": "cloud_polling",

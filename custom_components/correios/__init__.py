@@ -1,6 +1,6 @@
 """
 Home Assistant platform that provides information about the tracking of objects in the post office in Brazil.
-https://github.com/oridestomkiel/home-assistant-correios
+https://github.com/caseca/home-assistant-correios
 """
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant

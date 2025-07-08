@@ -1,7 +1,7 @@
 """
 A platform that provides information about the tracking of objects in the post office in Brazil
 For more details about this component, please refer to the documentation at
-https://github.com/oridestomkiel/home-assistant-correios
+https://github.com/caseca/home-assistant-correios
 """
 
 import logging
@@ -30,7 +30,7 @@ _LOGGER = logging.getLogger(__name__)
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
-    """Set up Tuya sensor dynamically through Tuya discovery."""
+    """Set up sensor dynamically."""
     track = entry.data[CONF_TRACKING]
     description = entry.data[CONF_DESCRIPTION]
     session = async_create_clientsession(hass)
