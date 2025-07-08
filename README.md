@@ -90,13 +90,13 @@ https://www.correios.com.br/atendimento/ferramentas/sistemas/arquivos/lista-de-e
 
 ***
 
-## Curtiu? Pague-me um café!
+<!--## Curtiu? Pague-me um café!
 
 Sinta-se livre para me pagar um café: Chave aleatória Pix `20b16bb2-d827-48a6-9e2c-924cd11a1a79` ou pelo QR CODE abaixo ❤.
 
 ![pix][pix]
 
-***
+***-->
 
 [hacs1]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-01.png
 [hacs2]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-02.png
