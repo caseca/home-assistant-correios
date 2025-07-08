@@ -4,18 +4,18 @@
 
 ## Rastreamento de objetos nos correios.
 
-![exemplo1][exampleimg1]
+[exampleimg1]: https://github.com/caseca/home-assistant-correios/raw/main/exemplo1.jpg
 
 ## Instalação
 - [x] Necessário ter o HACS instalado: https://github.com/hacs/integration
 
 Vá no HACS e clique em integrações:
 
-![hacs1][hacs1]
+[hacs1]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-01.png
 
 Clique no menu e vá em Repositórios personalizados.
 
-![hacs2][hacs2]
+[hacs2]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-02.png
 
 Preencha com o endereço do github do componente:
 
@@ -25,19 +25,19 @@ https://github.com/caseca/home-assistant-correios
 
 Selecione Integração. Clique em Adicionar:
 
-![hacs3][hacs3]
+[hacs3]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-03.png
 
 Clique em Baixar:
 
-![hacs4][hacs4]
+[hacs4]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-04.png
 
 Clique em Baixar:
 
-![hacs5][hacs5]
+[hacs5]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-05.png
 
 Reinicie o Home Assistant:
 
-![hacs6][hacs6]
+[hacs6]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-06.png
 
 ### Configuração Automática
 
@@ -51,20 +51,20 @@ A adição da integração à sua instância do Home Assistant pode ser feita at
 * Na barra lateral clique em Configuração .
 * No menu de configuração selecione Dispositivos e Serviços .
 
-![hacs10][hacs10]
+[hacs10]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-10.png
 
 * Vá no canto direito embaixo e clique em “+ Adicionar Integração”.
 * Na lista, pesquise e selecione “Rastreamento Correios” .
 
-![hacs7][hacs7]
+[hacs7]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-07.png
 
 * Digite a descrição e o código da ecomenda e clique no botão Enviar.
 
-![hacs8][hacs8]
+[hacs8]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-08.png
 
 - [x] Pronto, agora você verá seus rastreios e poderá realizar as suas integrações!
 
-![hacs9][hacs9]
+[hacs9]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-09.png
 
 ***
 
@@ -86,7 +86,7 @@ https://www.correios.com.br/atendimento/ferramentas/sistemas/arquivos/lista-de-e
 * Tipo Postal: Tipo de serviço referente ao pacote enviado.
 * Movimentações: Lista com todas as movimenrações do pacote, desde a postagem até a entrega.
 
-![exemplo2][exampleimg2]
+[exampleimg2]: https://github.com/caseca/home-assistant-correios/raw/main/exemplo2.jpg
 
 ***
 
