@@ -4,18 +4,18 @@
 
 ## Rastreamento de objetos nos correios.
 
-[exampleimg1]: https://github.com/caseca/home-assistant-correios/raw/main/exemplo1.jpg
+![exemplo1][exampleimg1]
 
 ## Instalação
 - [x] Necessário ter o HACS instalado: https://github.com/hacs/integration
 
 Vá no HACS e clique em integrações:
 
-[hacs1]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-01.png
+![hacs1][hacs1]
 
 Clique no menu e vá em Repositórios personalizados.
 
-[hacs2]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-02.png
+![hacs2][hacs2]
 
 Preencha com o endereço do github do componente:
 
@@ -25,19 +25,19 @@ https://github.com/caseca/home-assistant-correios
 
 Selecione Integração. Clique em Adicionar:
 
-[hacs3]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-03.png
+![hacs3][hacs3]
 
 Clique em Baixar:
 
-[hacs4]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-04.png
+![hacs4][hacs4]
 
 Clique em Baixar:
 
-[hacs5]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-05.png
+![hacs5][hacs5]
 
 Reinicie o Home Assistant:
 
-[hacs6]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-06.png
+![hacs6][hacs6]
 
 ### Configuração Automática
 
@@ -51,20 +51,20 @@ A adição da integração à sua instância do Home Assistant pode ser feita at
 * Na barra lateral clique em Configuração .
 * No menu de configuração selecione Dispositivos e Serviços .
 
-[hacs10]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-10.png
+![hacs10][hacs10]
 
 * Vá no canto direito embaixo e clique em “+ Adicionar Integração”.
 * Na lista, pesquise e selecione “Rastreamento Correios” .
 
-[hacs7]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-07.png
+![hacs7][hacs7]
 
 * Digite a descrição e o código da ecomenda e clique no botão Enviar.
 
-[hacs8]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-08.png
+![hacs8][hacs8]
 
 - [x] Pronto, agora você verá seus rastreios e poderá realizar as suas integrações!
 
-[hacs9]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-09.png
+![hacs9][hacs9]
 
 ***
 
@@ -86,7 +86,7 @@ https://www.correios.com.br/atendimento/ferramentas/sistemas/arquivos/lista-de-e
 * Tipo Postal: Tipo de serviço referente ao pacote enviado.
 * Movimentações: Lista com todas as movimenrações do pacote, desde a postagem até a entrega.
 
-[exampleimg2]: https://github.com/caseca/home-assistant-correios/raw/main/exemplo2.jpg
+![exemplo2][exampleimg2]
 
 ***
 
@@ -98,17 +98,17 @@ Sinta-se livre para me pagar um café: Chave aleatória Pix `20b16bb2-d827-48a6-
 
 ***
 
-[hacs1]: resources/hacs-01.png
-[hacs2]: resources/hacs-02.png
-[hacs3]: resources/hacs-03.png
-[hacs4]: resources/hacs-04.png
-[hacs5]: resources/hacs-05.png
-[hacs6]: resources/hacs-06.png
-[hacs7]: resources/hacs-07.png
-[hacs8]: resources/hacs-08.png
-[hacs9]: resources/hacs-09.png
-[hacs10]: resources/hacs-10.png
+[hacs1]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-01.png
+[hacs2]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-02.png
+[hacs3]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-03.png
+[hacs4]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-04.png
+[hacs5]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-05.png
+[hacs6]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-06.png
+[hacs7]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-07.png
+[hacs8]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-08.png
+[hacs9]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-09.png
+[hacs10]: https://github.com/caseca/home-assistant-correios/raw/main/resources/hacs-10.png
 
-[exampleimg1]: exemplo1.jpg
-[exampleimg2]: exemplo2.jpg
-[pix]: pix.jpg
+[exampleimg1]: https://github.com/caseca/home-assistant-correios/raw/main/exemplo1.jpg
+[exampleimg2]: https://github.com/caseca/home-assistant-correios/raw/main/exemplo2.jpg
+[pix]: https://github.com/caseca/home-assistant-correios/raw/main/pix.jpg
