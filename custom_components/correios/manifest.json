@@ -1,7 +1,7 @@
 {
   "domain": "correios",
   "name": "Rastreamento Correios",
-  "version": "2.0-beta-1",
+  "version": "1.4",
   "documentation": "https://github.com/caseca/home-assistant-correios",
   "dependencies": [],
   "codeowners": [
