@@ -13,7 +13,6 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers import device_registry as dr
-from correios_api import CorreiosApi
 
 import json
 from .const import (
@@ -80,39 +79,140 @@ class CorreiosSensor(SensorEntity):
 
     async def async_update(self):
         try:
-            def rastreio():
-                api = CorreiosApi()
-                return api.track(self.track)
-
-            resultado = await self.hass.async_add_executor_job(rastreio)
-            if not resultado or "error" in resultado:
-                self._state = "Objeto não encontrado"
+            url = BASE_API.format(self.track)
+            async with async_timeout.timeout(3000):
+                response = await self.session.get(url)
+                info = await response.text()
+                obj_correio = json.loads(info)
                 self.trackings = []
-                return
+                if "mensagem" in obj_correio["objetos"][0]:
+                    self._state = obj_correio["objetos"][0]["mensagem"]
+                    self._image = "https://rastreamento.correios.com.br/static/rastreamento-internet/imgs/correios-sf.png"
+                else:
+                    if len(obj_correio["objetos"][0]["eventos"]) > 0:
+                        self._state = obj_correio["objetos"][0]["eventos"][0][
+                            "descricao"
+                        ]
+                        ultima_movimentacao = obj_correio["objetos"][0]["eventos"][0]
+                        self.data_movimentacao = ultima_movimentacao[
+                            "dtHrCriado"
+                        ].replace("T", " ")
 
-            eventos = resultado.get("events", [])
-            if eventos:
-                evento = eventos[0]
-                self._state = evento.get("status", "Sem eventos")
-                self.data_movimentacao = evento.get("date")
-                self.origem = evento.get("unit")
-                self.destino = evento.get("destination")
-                self.tipoPostal = resultado.get("type")
-                self.dtPrevista = resultado.get("forecast")
-                self.trackings = [
-                    {
-                        "Descrição": e.get("status"),
-                        "Data/Hora": e.get("date"),
-                        "Local": e.get("unit"),
-                        "Destino": e.get("destination"),
-                    }
-                    for e in eventos
-                ]
-            else:
-                self._state = "Sem eventos"
-                self.trackings = []
+                        if "unidade" in ultima_movimentacao:
+                            if "cidade" in ultima_movimentacao["unidade"]["endereco"]:
+                                self.origem = (
+                                    ultima_movimentacao["unidade"]["tipo"]
+                                    + " - "
+                                    + ultima_movimentacao["unidade"]["endereco"][
+                                        "cidade"
+                                    ]
+                                    + "/"
+                                    + ultima_movimentacao["unidade"]["endereco"]["uf"]
+                                )
+                            else:
+                                self.origem = (
+                                    ultima_movimentacao["unidade"]["tipo"]
+                                    + " - "
+                                    + ultima_movimentacao["unidade"]["nome"]
+                                )
+
+                        if "unidadeDestino" in ultima_movimentacao:
+                            if (
+                                "cidade"
+                                in ultima_movimentacao["unidadeDestino"]["endereco"]
+                            ):
+                                self.destino = (
+                                    ultima_movimentacao["unidadeDestino"]["tipo"]
+                                    + " - "
+                                    + ultima_movimentacao["unidadeDestino"]["endereco"][
+                                        "cidade"
+                                    ]
+                                    + "/"
+                                    + ultima_movimentacao["unidadeDestino"]["endereco"][
+                                        "uf"
+                                    ]
+                                )
+                            else:
+                                self.destino = (
+                                    ultima_movimentacao["unidadeDestino"]["tipo"]
+                                    + " - "
+                                    + ultima_movimentacao["unidadeDestino"]["nome"]
+                                )
+
+                        for eventos in obj_correio["objetos"][0]["eventos"]:
+                            self.trackings.append(
+                                {"": "", "Descrição": eventos["descricao"]}
+                            )
+                            if "unidadeDestino" in eventos:
+                                if "cidade" in eventos["unidade"]["endereco"]:
+                                    self.trackings.append(
+                                        {
+                                            "DE": eventos["unidade"]["tipo"]
+                                            + ", "
+                                            + eventos["unidade"]["endereco"]["cidade"]
+                                            + " - "
+                                            + eventos["unidade"]["endereco"]["uf"],
+                                            "Para": eventos["unidadeDestino"]["tipo"]
+                                            + ", "
+                                            + eventos["unidadeDestino"]["endereco"][
+                                                "cidade"
+                                            ]
+                                            + " - "
+                                            + eventos["unidadeDestino"]["endereco"][
+                                                "uf"
+                                            ],
+                                        }
+                                    )
+                                else:
+                                    self.trackings.append(
+                                        {
+                                            "DE": eventos["unidade"]["tipo"]
+                                            + ", "
+                                            + eventos["unidade"]["nome"],
+                                            "Para": eventos["unidadeDestino"]["tipo"]
+                                            + ", "
+                                            + eventos["unidadeDestino"]["endereco"][
+                                                "uf"
+                                            ]
+                                            + " - "
+                                            + eventos["unidadeDestino"]["nome"],
+                                        }
+                                    )
+                            else:
+                                if "cidade" in eventos["unidade"]["endereco"]:
+                                    self.trackings.append(
+                                        {
+                                            "Em": eventos["unidade"]["tipo"]
+                                            + ", "
+                                            + eventos["unidade"]["endereco"]["cidade"]
+                                            + " - "
+                                            + eventos["unidade"]["endereco"]["uf"]
+                                        }
+                                    )
+                                else:
+                                    self.trackings.append(
+                                        {
+                                            "Em": eventos["unidade"]["tipo"]
+                                            + ", "
+                                            + eventos["unidade"]["nome"]
+                                        }
+                                    )
+                            self.trackings.append(
+                                {"Data/Hora": eventos["dtHrCriado"].replace("T", " ")}
+                            )
+                    if "dtPrevista" in obj_correio["objetos"][0]:
+                        self.dtPrevista = obj_correio["objetos"][0]["dtPrevista"]
+                    self._image = (
+                        BASE_URL + obj_correio["objetos"][0]["eventos"][0]["urlIcone"]
+                    )
+                    self.info = info
+                    self.tipoPostal = (
+                        obj_correio["objetos"][0]["tipoPostal"]["categoria"]
+                        + " - "
+                        + obj_correio["objetos"][0]["tipoPostal"]["descricao"]
+                    )
         except Exception as error:
-            _LOGGER.error("Não foi possível atualizar - %s", error)
+            _LOGGER.error("%s - Não foi possível atualizar - %s", self.info, error)
 
     @property
     def name(self):
