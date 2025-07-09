@@ -13,6 +13,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers import device_registry as dr
+from correios_api import CorreiosApi
 
 import json
 from .const import (
@@ -79,41 +80,37 @@ class CorreiosSensor(SensorEntity):
 
     async def async_update(self):
         try:
-            # pycorreios não é async, então rode em executor
-            from pycorreios import rastrear_objeto
-
             def rastreio():
-                return rastrear_objeto(self.track)
+                api = CorreiosApi()
+                return api.track(self.track)
 
-            objetos = await self.hass.async_add_executor_job(rastreio)
-            if not objetos:
+            resultado = await self.hass.async_add_executor_job(rastreio)
+            if not resultado or "error" in resultado:
                 self._state = "Objeto não encontrado"
                 self.trackings = []
                 return
 
-            objeto = objetos[0]
-            self._state = objeto.eventos[0].descricao if objeto.eventos else "Sem eventos"
-            self.data_movimentacao = (
-                objeto.eventos[0].data_hora.strftime("%Y-%m-%d %H:%M")
-                if objeto.eventos else None
-            )
-            self.origem = (
-                objeto.eventos[0].unidade.nome if objeto.eventos and objeto.eventos[0].unidade else None
-            )
-            self.destino = (
-                objeto.eventos[0].unidade_destino.nome if objeto.eventos and objeto.eventos[0].unidade_destino else None
-            )
-            self.tipoPostal = objeto.tipo
-            self.dtPrevista = None  # pycorreios não retorna data prevista
-            self.trackings = [
-                {
-                    "Descrição": evento.descricao,
-                    "Data/Hora": evento.data_hora.strftime("%Y-%m-%d %H:%M"),
-                    "Local": evento.unidade.nome if evento.unidade else "",
-                    "Destino": evento.unidade_destino.nome if evento.unidade_destino else "",
-                }
-                for evento in objeto.eventos
-            ]
+            eventos = resultado.get("events", [])
+            if eventos:
+                evento = eventos[0]
+                self._state = evento.get("status", "Sem eventos")
+                self.data_movimentacao = evento.get("date")
+                self.origem = evento.get("unit")
+                self.destino = evento.get("destination")
+                self.tipoPostal = resultado.get("type")
+                self.dtPrevista = resultado.get("forecast")
+                self.trackings = [
+                    {
+                        "Descrição": e.get("status"),
+                        "Data/Hora": e.get("date"),
+                        "Local": e.get("unit"),
+                        "Destino": e.get("destination"),
+                    }
+                    for e in eventos
+                ]
+            else:
+                self._state = "Sem eventos"
+                self.trackings = []
         except Exception as error:
             _LOGGER.error("Não foi possível atualizar - %s", error)
 
