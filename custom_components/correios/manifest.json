@@ -1,14 +1,16 @@
 {
   "domain": "correios",
   "name": "Rastreamento Correios",
-  "version": "1.4",
+  "version": "1.5",
   "documentation": "https://github.com/caseca/home-assistant-correios",
   "dependencies": [],
   "codeowners": [
     "@oridestomkiel",
     "@diogocaseca"
   ],
-  "requirements": [],
+  "requirements": [
+    "pycorreios==1.0.2"
+  ],
   "iot_class": "cloud_polling",
   "config_flow": true
 }
